@@ -4,7 +4,7 @@ import numpy as np
 def calculate_shannon_entropy(data):
     total = sum(data)
     if (total == 0):
-        return 0
+        return -1
     probabilities = [x / total for x in data]
     entropy = -sum(p * np.log2(p) for p in probabilities if p > 0)
     return entropy
