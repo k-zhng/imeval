@@ -36,5 +36,4 @@ with gzip.open('../imeval/at_ime_tissues.txt.gz', 'rt') as file_handle:
         stop = fields[2]
         sequence = fields[-1]
         intron_score = evaluate_intron(model_dict, sequence, kmer_length)
-        print("# name, start, stop, score")
         print(entry_name, start, stop, intron_score, sep=',')
