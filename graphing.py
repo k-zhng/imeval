@@ -1,4 +1,5 @@
 import matplotlib.pyplot as plt
+import argparse
 
 imeter_scores = {}
 entropy_scores = {}
@@ -25,9 +26,6 @@ with open('imeval\intron_imeter_scores.txt', 'r') as file:
 x_values = list(entropy_scores.values())
 y_values = list(imeter_scores.values())
 
-print(x_values)
-print(y_values)
-
 # Create a line graph
 plt.scatter(x_values, y_values, marker=".")
 
@@ -38,6 +36,3 @@ plt.ylabel('IMEter Score')
 
 # Display the graph
 plt.show()
-
-# print(imeter_scores)
-# print(entropy_scores)
