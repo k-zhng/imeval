@@ -24,6 +24,9 @@ with gzip.open('../imeval/at_ime_tissues.txt.gz', 'rt') as file_handle:
         fields = line.split()
         entry_name = fields[0]
         expression = []
+        total_expression = 0
         for i in range(4, 15):
-            expression.append(int(fields[i])/expression_sum[i - 4])
-        print(entry_name, calculate_shannon_entropy(expression), sep=',')
+            curr_expression = int(fields[i])
+            expression.append(curr_expression/expression_sum[i - 4])
+            total_expression += curr_expression
+        print(entry_name, calculate_shannon_entropy(expression), total_expression, sep=',')
