@@ -25,8 +25,20 @@ def evaluate_intron(model_dict, sequence, kmer_length, offset=5, adjust=10):
             score += model_dict[kmer]
     return score
 
+def cutoff_evaluate_intron(model_dict, sequence, kmer_length, cutoff, offset=5, adjust=10):
+    score = 0
+    for index in range(offset, len(sequence) - kmer_length + 1 - adjust):
+        if (index > cutoff):
+            break
+        kmer = sequence[index:index + kmer_length]
+        if kmer in model_dict:
+            score += model_dict[kmer]
+    return score
+
+
 model_dict = load_model('kmer_imeter_scores.txt')
 kmer_length = len(list(model_dict.keys())[0])
+proximal_cutoff = 400
 
 with gzip.open('../imeval/at_ime_tissues.txt.gz', 'rt') as file_handle:
     for line in file_handle.readlines():
@@ -35,5 +47,6 @@ with gzip.open('../imeval/at_ime_tissues.txt.gz', 'rt') as file_handle:
         start = fields[1]
         stop = fields[2]
         sequence = fields[-1]
-        intron_score = evaluate_intron(model_dict, sequence, kmer_length)
+        # intron_score = evaluate_intron(model_dict, sequence, kmer_length) #no cutoff
+        intron_score = cutoff_evaluate_intron(model_dict, sequence, kmer_length, proximal_cutoff) #with cutoff of proximal_cutoff
         print(entry_name, start, stop, intron_score, sep=',')
