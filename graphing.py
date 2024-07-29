@@ -31,8 +31,8 @@ with open('imeval\cutoff_intron_imeter_scores.txt', 'r') as file:
         add_value_to_key(entry_name, imeter_score, imeter_scores)
 
 x_values = np.array(list(entropy_scores.values()))
-y_values = np.array(list(imeter_scores.values()))
 tot_expression_values = np.array(list(tot_expression_levels.values()))
+y_values = np.array(list(imeter_scores.values()))
 
 # sorted_indices = np.argsort(tot_expression_values)
 # print(sorted_indices)
@@ -55,7 +55,7 @@ plt.ylim(top=125)  # Upper limit of the y-axis
 
 
 # Add color bar to show the scale
-plt.colorbar(label='Color Scale')
+plt.colorbar(label='Total Expression Levels')
 
 # Display the graph
 plt.show()
