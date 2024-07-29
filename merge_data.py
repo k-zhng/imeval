@@ -15,7 +15,7 @@ def read_file2(filename):
     with gzip.open(filename, 'rt') as file:
         for line in file:
             parts = line.strip().split('\t')
-            id_ = parts[0]
+            id_ = parts[0].rsplit('.', 1)[0]  # Remove the decimal part
             data[id_] = parts[1:]  # Store rest of the parts
     return data
 
@@ -30,7 +30,5 @@ data2 = read_file2(file2)
 # Merge the data and print each line
 for id_ in data1:
     if id_ in data2:
-        merged_line = [id_] + data1[id_][:3] + data2[id_] + [data1[id_][3]]
+        merged_line = [id_] + data2[id_][:3] + data1[id_][:16] + data2[id_][3:]
         print('\t'.join(merged_line))
-
-print(data2)

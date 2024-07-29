@@ -6,13 +6,15 @@ import math
 imeter_scores = {}
 entropy_scores = {}
 tot_expression_levels = {}
+entropy_file = 'os_entropy_scores.txt'
+intron_file = 'os_intron_imeter_scores.txt'
 
 def add_value_to_key(key, value, curr_dict):
     if key not in curr_dict:
         curr_dict[key] = - 2 ** 31
     curr_dict[key] = max (value, curr_dict[key])
 
-with open('imeval\entropy_scores.txt', 'r') as file:
+with open(entropy_file, 'r') as file:
     for line in file:
         fields = line.split(',')
         entry_name = fields[0]
@@ -23,7 +25,7 @@ with open('imeval\entropy_scores.txt', 'r') as file:
         add_value_to_key(entry_name, entropy, entropy_scores)
         add_value_to_key(entry_name, expression, tot_expression_levels)
 
-with open('imeval\cutoff_intron_imeter_scores.txt', 'r') as file:
+with open(intron_file, 'r') as file:
     for line in file:
         fields = line.split(',')
         entry_name = fields[0]

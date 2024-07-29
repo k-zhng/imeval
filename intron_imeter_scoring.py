@@ -9,11 +9,12 @@ def load_model(file_path):
     else:
         file_handle = open(file_path)
 
-    for line in file_handle.readlines():
-        if line.startswith('#'):
-            continue
-        kmer, metric, _, _ = line.split()
-        model_dict[kmer] = float(metric)
+    with file_handle:
+        for line in file_handle.readlines():
+            if line.startswith('#'):
+                continue
+            kmer, metric, _, _ = line.split()
+            model_dict[kmer] = float(metric)
 
     return model_dict
 
@@ -28,19 +29,26 @@ def evaluate_intron(model_dict, sequence, kmer_length, offset=5, adjust=10):
 def cutoff_evaluate_intron(model_dict, sequence, kmer_length, cutoff, offset=5, adjust=10):
     score = 0
     for index in range(offset, len(sequence) - kmer_length + 1 - adjust):
-        if (index > cutoff):
+        if index > cutoff:
             break
         kmer = sequence[index:index + kmer_length]
         if kmer in model_dict:
             score += model_dict[kmer]
     return score
 
-
 model_dict = load_model('kmer_imeter_scores.txt')
 kmer_length = len(list(model_dict.keys())[0])
 proximal_cutoff = 400
 
-with gzip.open('../imeval/at_ime_tissues.txt.gz', 'rt') as file_handle:
+# file = '../imeval/at_ime_tissues.txt.gz' # a. thaliana
+file = 'os_ime_tissues.txt' # o. sativa
+
+if file.endswith('.gz'):
+    file_handle = gzip.open(file, 'rt')
+else:
+    file_handle = open(file, 'r')
+
+with file_handle:
     for line in file_handle.readlines():
         fields = line.split()
         entry_name = fields[0]

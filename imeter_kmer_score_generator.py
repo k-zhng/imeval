@@ -54,7 +54,7 @@ def training(filename, k=5, d=5, a=10, t=400):
 
 # CLI
 
-file = '../imeval/at_ime_tissues.txt.gz'
+file = '../imeval/at_ime_tissues.txt.gz' # a. thaliana
 don_change = 5
 acc_change = 10
 cut_change =  400
