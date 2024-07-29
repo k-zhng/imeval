@@ -7,7 +7,7 @@ imeter_scores = {}
 entropy_scores = {}
 tot_expression_levels = {}
 entropy_file = 'os_entropy_scores.txt'
-intron_file = 'os_intron_imeter_scores.txt'
+intron_file = 'os_cutoff_intron_imeter_scores.txt'
 
 def add_value_to_key(key, value, curr_dict):
     if key not in curr_dict:
@@ -22,6 +22,8 @@ with open(entropy_file, 'r') as file:
         expression = float(fields[2])
         if (expression > 0):
             expression = math.log(expression)
+        if(expression < 0):
+            expression = 0
         add_value_to_key(entry_name, entropy, entropy_scores)
         add_value_to_key(entry_name, expression, tot_expression_levels)
 
@@ -47,13 +49,13 @@ y_values = np.array(list(imeter_scores.values()))
 plt.scatter(x_values, y_values, c = tot_expression_values, cmap = 'turbo', s = 1)
 
 # Add titles and labels
-plt.title('Entropy vs. IMEter Score (With threshold)')
+plt.title('Entropy vs. IMEter Score in A. thaliana (With threshold)')
 plt.xlabel('Entropy Values')
 plt.ylabel('IMEter Score')
 
 # Set limit to y-axis
-plt.ylim(bottom=-75)  # Lower limit of the y-axis
-plt.ylim(top=125)  # Upper limit of the y-axis
+# plt.ylim(bottom=-75)  # Lower limit of the y-axis
+# plt.ylim(top=125)  # Upper limit of the y-axis
 
 
 # Add color bar to show the scale

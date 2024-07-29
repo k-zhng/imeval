@@ -1,5 +1,10 @@
 import gzip
 
+file = '../imeval/at_ime_tissues.txt.gz' # a. thaliana
+model = 'at_kmer_imeter_scores.txt'
+# file = 'os_ime_tissues.txt' # o. sativa
+# model = 'os_kmer_imeter_scores.txt'
+
 def load_model(file_path):
     model_dict = {}
 
@@ -36,12 +41,9 @@ def cutoff_evaluate_intron(model_dict, sequence, kmer_length, cutoff, offset=5, 
             score += model_dict[kmer]
     return score
 
-model_dict = load_model('kmer_imeter_scores.txt')
+model_dict = load_model(model)
 kmer_length = len(list(model_dict.keys())[0])
 proximal_cutoff = 400
-
-# file = '../imeval/at_ime_tissues.txt.gz' # a. thaliana
-file = 'os_ime_tissues.txt' # o. sativa
 
 if file.endswith('.gz'):
     file_handle = gzip.open(file, 'rt')
