@@ -6,13 +6,14 @@ import math
 imeter_scores = {}
 entropy_scores = {}
 tot_expression_levels = {}
-entropy_file = 'os_entropy_scores.txt'
-intron_file = 'os_cutoff_intron_imeter_scores.txt'
+organism = "A. thaliana"
+entropy_file = 'at_entropy_scores.txt'
+intron_file = 'at_cutoff_intron_imeter_scores.txt'
 
 def add_value_to_key(key, value, curr_dict):
     if key not in curr_dict:
         curr_dict[key] = - 2 ** 31
-    curr_dict[key] = max (value, curr_dict[key])
+    curr_dict[key] = max(value, curr_dict[key])
 
 with open(entropy_file, 'r') as file:
     for line in file:
@@ -20,9 +21,9 @@ with open(entropy_file, 'r') as file:
         entry_name = fields[0]
         entropy = float(fields[1])
         expression = float(fields[2])
-        if (expression > 0):
+        if expression > 0:
             expression = math.log(expression, math.e)
-        if(expression < 0):
+        if expression < 0:
             expression = 0
         add_value_to_key(entry_name, entropy, entropy_scores)
         add_value_to_key(entry_name, expression, tot_expression_levels)
@@ -38,28 +39,47 @@ x_values = np.array(list(entropy_scores.values()))
 tot_expression_values = np.array(list(tot_expression_levels.values()))
 y_values = np.array(list(imeter_scores.values()))
 
+# # Un-needed sorting
 # sorted_indices = np.argsort(tot_expression_values)
 # print(sorted_indices)
 # x_values = x_values[sorted_indices]
 # y_values = y_values[sorted_indices]
 # tot_expression_values = tot_expression_values[sorted_indices]
 
-
-# Create a line graph
-plt.scatter(x_values, y_values, c = tot_expression_values, cmap = 'turbo', s = 1)
+# Create a scatter plot
+plt.scatter(x_values, y_values, c=tot_expression_values, cmap='turbo', s=1)
 
 # Add titles and labels
-plt.title('Entropy vs. IMEter Score in O. sativa', fontdict={'fontsize': 18, 'fontweight': 'normal', 'fontfamily': 'Times New Roman'})
+plt.title('IMEter Score vs. Entropy in ' + organism, fontdict={'fontsize': 18, 'fontweight': 'normal', 'fontfamily': 'Times New Roman'})
 plt.xlabel('Entropy Values', fontdict={'fontsize': 12, 'fontweight': 'light', 'fontfamily': 'Times New Roman'})
 plt.ylabel('IMEter Score', fontdict={'fontsize': 12, 'fontweight': 'light', 'fontfamily': 'Times New Roman'})
-
-# Set limit to y-axis
-# plt.ylim(bottom=-75)  # Lower limit of the y-axis
-# plt.ylim(top=125)  # Upper limit of the y-axis
-
 
 # Add color bar to show the scale
 plt.colorbar(label='Natural Log of Normalized Total Expression Levels')
 
-# Display the graph
+# Display the scatter plot
+plt.show()
+
+# Create a histogram for entropy values
+plt.figure(figsize=(10, 6))
+plt.hist(x_values, bins=30, color='blue', edgecolor='black')
+plt.title('Entropy Values in ' + organism, fontdict={'fontsize': 18, 'fontweight': 'normal', 'fontfamily': 'Times New Roman'})
+plt.xlabel('Entropy Values', fontdict={'fontsize': 12, 'fontweight': 'light', 'fontfamily': 'Times New Roman'})
+plt.ylabel('Frequency', fontdict={'fontsize': 12, 'fontweight': 'light', 'fontfamily': 'Times New Roman'})
+plt.show()
+
+# Create a histogram for IMEter scores
+plt.figure(figsize=(10, 6))
+plt.hist(y_values, bins=30, color='green', edgecolor='black')
+plt.title('IMEter Scores in ' + organism, fontdict={'fontsize': 18, 'fontweight': 'normal', 'fontfamily': 'Times New Roman'})
+plt.xlabel('IMEter Scores', fontdict={'fontsize': 12, 'fontweight': 'light', 'fontfamily': 'Times New Roman'})
+plt.ylabel('Frequency', fontdict={'fontsize': 12, 'fontweight': 'light', 'fontfamily': 'Times New Roman'})
+plt.show()
+
+# Create a histogram for total expression levels
+plt.figure(figsize=(10, 6))
+plt.hist(tot_expression_values, bins=30, color='purple', edgecolor='black')
+plt.title('Total Expression Levels in ' + organism, fontdict={'fontsize': 18, 'fontweight': 'normal', 'fontfamily': 'Times New Roman'})
+plt.xlabel('Total Expression Levels (Natural Log)', fontdict={'fontsize': 12, 'fontweight': 'light', 'fontfamily': 'Times New Roman'})
+plt.ylabel('Frequency', fontdict={'fontsize': 12, 'fontweight': 'light', 'fontfamily': 'Times New Roman'})
 plt.show()
