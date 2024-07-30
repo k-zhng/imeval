@@ -21,7 +21,7 @@ with open(entropy_file, 'r') as file:
         entropy = float(fields[1])
         expression = float(fields[2])
         if (expression > 0):
-            expression = math.log(expression)
+            expression = math.log(expression, math.e)
         if(expression < 0):
             expression = 0
         add_value_to_key(entry_name, entropy, entropy_scores)
@@ -49,9 +49,9 @@ y_values = np.array(list(imeter_scores.values()))
 plt.scatter(x_values, y_values, c = tot_expression_values, cmap = 'turbo', s = 1)
 
 # Add titles and labels
-plt.title('Entropy vs. IMEter Score in A. thaliana (With threshold)')
-plt.xlabel('Entropy Values')
-plt.ylabel('IMEter Score')
+plt.title('Entropy vs. IMEter Score in O. sativa', fontdict={'fontsize': 18, 'fontweight': 'normal', 'fontfamily': 'Times New Roman'})
+plt.xlabel('Entropy Values', fontdict={'fontsize': 12, 'fontweight': 'light', 'fontfamily': 'Times New Roman'})
+plt.ylabel('IMEter Score', fontdict={'fontsize': 12, 'fontweight': 'light', 'fontfamily': 'Times New Roman'})
 
 # Set limit to y-axis
 # plt.ylim(bottom=-75)  # Lower limit of the y-axis
@@ -59,7 +59,7 @@ plt.ylabel('IMEter Score')
 
 
 # Add color bar to show the scale
-plt.colorbar(label='Total Expression Levels')
+plt.colorbar(label='Natural Log of Normalized Total Expression Levels')
 
 # Display the graph
 plt.show()
