@@ -6,9 +6,9 @@ import math
 imeter_scores = {}
 entropy_scores = {}
 tot_expression_levels = {}
-organism = "A. thaliana"
-entropy_file = 'at_entropy_scores.txt'
-intron_file = 'at_cutoff_intron_imeter_scores.txt'
+organism = "O. sativa"
+entropy_file = 'os_entropy_scores.txt'
+intron_file = 'os_cutoff_intron_imeter_scores.txt'
 
 def add_value_to_key(key, value, curr_dict):
     if key not in curr_dict:
@@ -63,23 +63,23 @@ plt.show()
 # Create a histogram for entropy values
 plt.figure(figsize=(10, 6))
 plt.hist(x_values, bins=30, color='blue', edgecolor='black')
-plt.title('Entropy Values in ' + organism, fontdict={'fontsize': 18, 'fontweight': 'normal', 'fontfamily': 'Times New Roman'})
-plt.xlabel('Entropy Values', fontdict={'fontsize': 12, 'fontweight': 'light', 'fontfamily': 'Times New Roman'})
-plt.ylabel('Frequency', fontdict={'fontsize': 12, 'fontweight': 'light', 'fontfamily': 'Times New Roman'})
+plt.title('Tissue Specificity in ' + organism, fontdict={'fontsize': 20, 'fontweight': 'normal', 'fontfamily': 'Times New Roman'})
+plt.xlabel('Entropy Values', fontdict={'fontsize': 18, 'fontweight': 'light', 'fontfamily': 'Times New Roman'})
+plt.ylabel('Frequency', fontdict={'fontsize': 18, 'fontweight': 'light', 'fontfamily': 'Times New Roman'})
 plt.show()
 
 # Create a histogram for IMEter scores
 plt.figure(figsize=(10, 6))
 plt.hist(y_values, bins=30, color='green', edgecolor='black')
-plt.title('IMEter Scores in ' + organism, fontdict={'fontsize': 18, 'fontweight': 'normal', 'fontfamily': 'Times New Roman'})
-plt.xlabel('IMEter Scores', fontdict={'fontsize': 12, 'fontweight': 'light', 'fontfamily': 'Times New Roman'})
-plt.ylabel('Frequency', fontdict={'fontsize': 12, 'fontweight': 'light', 'fontfamily': 'Times New Roman'})
+plt.title('IMEter Scores in ' + organism, fontdict={'fontsize': 20, 'fontweight': 'normal', 'fontfamily': 'Times New Roman'})
+plt.xlabel('IMEter Scores', fontdict={'fontsize': 18, 'fontweight': 'light', 'fontfamily': 'Times New Roman'})
+plt.ylabel('Frequency', fontdict={'fontsize': 18, 'fontweight': 'light', 'fontfamily': 'Times New Roman'})
 plt.show()
 
 # Create a histogram for total expression levels
 plt.figure(figsize=(10, 6))
 plt.hist(tot_expression_values, bins=30, color='purple', edgecolor='black')
-plt.title('Total Expression Levels in ' + organism, fontdict={'fontsize': 18, 'fontweight': 'normal', 'fontfamily': 'Times New Roman'})
-plt.xlabel('Total Expression Levels (Natural Log)', fontdict={'fontsize': 12, 'fontweight': 'light', 'fontfamily': 'Times New Roman'})
-plt.ylabel('Frequency', fontdict={'fontsize': 12, 'fontweight': 'light', 'fontfamily': 'Times New Roman'})
+plt.title('Total Expression Levels in ' + organism, fontdict={'fontsize': 20, 'fontweight': 'normal', 'fontfamily': 'Times New Roman'})
+plt.xlabel('Total Expression Levels (Natural Log)', fontdict={'fontsize': 18, 'fontweight': 'light', 'fontfamily': 'Times New Roman'})
+plt.ylabel('Frequency', fontdict={'fontsize': 18, 'fontweight': 'light', 'fontfamily': 'Times New Roman'})
 plt.show()
