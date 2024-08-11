@@ -8,9 +8,8 @@ def calculate_shannon_entropy(data):
     probabilities = [x / total for x in data]
     entropy = -sum(p * np.log2(p) for p in probabilities if p > 0)
     return entropy
-
 expression_sum = [0] * 11
-file = '../imeval/os_ime_tissues.txt'  # Update this path as needed
+file = '../imeval/at_ime_tissues.txt.gz'  # Update this path as needed
 
 if file.endswith('.gz'):
     file_handle = gzip.open(file, 'rt')

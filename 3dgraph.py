@@ -99,7 +99,7 @@ def update(frame):
 # Create the animation
 ani = FuncAnimation(fig, update, frames=720, interval=20, blit=False)
 
-# Save the animation as a gif
-ani.save('3d_plot_rotation_v2.gif', writer=PillowWriter(fps=30))
+# # Save the animation as a gif
+# ani.save('3d_plot_rotation_v2.gif', writer=PillowWriter(fps=30))
 
 plt.show()
